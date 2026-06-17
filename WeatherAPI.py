@@ -43,7 +43,7 @@ def print_header():
     Выводит заголовок программы с визуальным оформлением.
     """
     print("=" * 60)
-    print("      🌤️  WeatherAPI - Консольный метеоролог  🌧️")
+    print("       WeatherAPI - Консольный метеоролог  🌧️")
     print("=" * 60)
     print()
 
@@ -55,7 +55,7 @@ def validate_api_key():
         bool: True, если ключ действительный, иначе False
     """
     if API_KEY == "ваш_api_ключ" or not API_KEY:
-        print("\n⚠️  ОШИБКА: API-ключ не настроен!")
+        print("\n  ОШИБКА: API-ключ не настроен!")
         print("Инструкция по получению ключа:")
         print("1. Перейдите на https://openweathermap.org/api")
         print("2. Зарегистрируйтесь и получите бесплатный ключ")
@@ -102,32 +102,32 @@ def get_weather(city_name):
         return weather_data
         
     except requests.exceptions.Timeout:
-        print("\n❌ ОШИБКА: Превышено время ожидания ответа от сервера.")
+        print("\n ОШИБКА: Превышено время ожидания ответа от сервера.")
         print("   Проверьте интернет-соединение и попробуйте снова.")
         return None
         
     except requests.exceptions.ConnectionError:
-        print("\n❌ ОШИБКА: Не удалось подключиться к серверу.")
+        print("\n ОШИБКА: Не удалось подключиться к серверу.")
         print("   Проверьте интернет-соединение.")
         return None
         
     except requests.exceptions.HTTPError as e:
         if response.status_code == 401:
-            print("\n❌ ОШИБКА: Неверный API-ключ.")
+            print("\n ОШИБКА: Неверный API-ключ.")
             print("   Проверьте правильность ключа в файле Weather.py")
         elif response.status_code == 404:
-            print(f"\n❌ ОШИБКА: Город '{city_name}' не найден.")
+            print(f"\n ОШИБКА: Город '{city_name}' не найден.")
             print("   Убедитесь, что название введено на английском языке.")
         else:
-            print(f"\n❌ HTTP ОШИБКА: {e}")
+            print(f"\n HTTP ОШИБКА: {e}")
         return None
         
     except requests.exceptions.RequestException as e:
-        print(f"\n❌ ОШИБКА ЗАПРОСА: {e}")
+        print(f"\n ОШИБКА ЗАПРОСА: {e}")
         return None
         
     except json.JSONDecodeError:
-        print("\n❌ ОШИБКА: Сервер вернул некорректные данные (не JSON).")
+        print("\n ОШИБКА: Сервер вернул некорректные данные (не JSON).")
         return None
 
 def display_weather(weather_data, city_name):
@@ -144,7 +144,7 @@ def display_weather(weather_data, city_name):
     # Проверяем код ответа (в случае ошибки API возвращает cod != 200)
     if weather_data.get('cod') != 200:
         error_msg = weather_data.get('message', 'Неизвестная ошибка')
-        print(f"\n❌ ОШИБКА API: {error_msg}")
+        print(f"\n ОШИБКА API: {error_msg}")
         return
     
     # Извлекаем данные из JSON-структуры
@@ -160,24 +160,24 @@ def display_weather(weather_data, city_name):
     
     # Выводим информацию с форматированием
     print("\n" + "-" * 60)
-    print(f"📍  ГОРОД: {city_name.upper()}")
+    print(f"  ГОРОД: {city_name.upper()}")
     print("-" * 60)
     
     if temp is not None:
-        print(f"🌡️  Температура:        {temp:.1f}°C")
+        print(f"  Температура:        {temp:.1f}°C")
     if feels_like is not None:
-        print(f"🤔  Ощущается как:      {feels_like:.1f}°C")
+        print(f"  Ощущается как:      {feels_like:.1f}°C")
     if humidity is not None:
-        print(f"💧  Влажность:           {humidity}%")
+        print(f"  Влажность:           {humidity}%")
     if wind_speed is not None:
-        print(f"💨  Ветер:               {wind_speed:.1f} м/с")
+        print(f"  Ветер:               {wind_speed:.1f} м/с")
     
-    print(f"☁️  Описание:            {weather_desc}")
+    print(f"  Описание:            {weather_desc}")
     print("-" * 60)
     
     # Дополнительная информация: время запроса
     current_time = datetime.now().strftime("%d.%m.%Y %H:%M")
-    print(f"🕐  Данные получены:     {current_time}")
+    print(f"  Данные получены:     {current_time}")
     print("-" * 60)
 
 def get_user_city():
@@ -187,18 +187,18 @@ def get_user_city():
     Возвращает:
         str: Название города или None, если ввод пустой
     """
-    print("\n🌍  Введите название города (на английском языке):")
+    print("\n  Введите название города (на английском языке):")
     print("   (Например: Moscow, London, Berlin, Tokyo)")
     
     city = input("> ").strip()
     
     if not city:
-        print("\n❌ ОШИБКА: Название города не может быть пустым.")
+        print("\n ОШИБКА: Название города не может быть пустым.")
         return None
     
     # Проверяем, что введены только буквы, пробелы и дефисы
     if not all(c.isalpha() or c.isspace() or c == '-' for c in city):
-        print("\n⚠️  ВНИМАНИЕ: Название должно содержать только буквы.")
+        print("\n  ВНИМАНИЕ: Название должно содержать только буквы.")
         print("   Попробуйте снова.")
         return None
     
@@ -235,7 +235,7 @@ def main():
     display_weather(weather_data, city)
     
     # Шаг 5: Завершение программы
-    print("\n✨  Программа завершена. Спасибо за использование! ✨")
+    print("\n  Программа завершена. Спасибо за использование! ")
     input("\nНажмите Enter для выхода...")
 
 # ============================================================================

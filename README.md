@@ -34,7 +34,9 @@ pip install -r requirements.txt
 
 text
 requests>=2.28.0
+
 3. Получение API-ключа
+
 Для доступа к данным OpenWeatherMap необходимо:
 
 Зарегистрироваться на сайте OpenWeatherMap
